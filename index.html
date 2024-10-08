@@ -24,7 +24,7 @@
   <body>
     <div class="container mt-5">
       <h1 class="text-center">Disney Characters</h1>
-      <div id="aulas" class="mt-4"></div>
+      <div id="characters" class="mt-4"></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -36,20 +36,21 @@
       fetch("https://api.disneyapi.dev/character")
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
-          const charactersContainer = document.getElementById("");
+          console.log(data.data)
+          const charactersContainer = document.getElementById("characters");
+          console.log(charactersContainer)
           
-          const cards = data.map((item) => {
+          data.data.forEach((item) => {
             const card = document.createElement("div");
             card.className = "card mb-4";
             card.innerHTML = `
                         <div class="card-body">
                           <h2 class="card-name"> Name ${item.name}</h2>
-                          // <img src="${item.imageUrl}" alt="img"/>
+                          <img src="${item.imageUrl}" alt="img"/>
                           <h5 class="card-title">ID ${item._id}</h5>
                         </div>
                     `;
-            cards.forEach(card => charactersContainer.appendChild(card));
+            charactersContainer.appendChild(card);
           });
         })
         .catch((error) => console.error("Erro:", error));
